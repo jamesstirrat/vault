@@ -1,9 +1,10 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableHighlight, TouchableOpacity, Animated } from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { withNavigation } from 'react-navigation';
 
 
-export default class AddButton extends React.Component {
+class AddButton extends React.Component {
     mode = new Animated.Value(0);
     buttonSize = new Animated.Value(1);
 
@@ -92,18 +93,18 @@ export default class AddButton extends React.Component {
 
                 <Animated.View style={{ position: "absolute", left: cameraX, top: cameraY }}>
                     <View style={styles.secondaryButton}>
-                        <Icon name="camera" size={20} color="white" />
+                        <Icon name="camera" size={20} color="#1A86CB" />
                     </View>
                 </Animated.View>
 
                 <Animated.View style={{ position: "absolute", left: textX, top: textY }}>
                     <View style={styles.secondaryButton}>
-                        <Icon name="text" size={20} color="white" />
+                        <Icon name="font" size={20} color="#1A86CB" />
                     </View>
                 </Animated.View>
 
                 <Animated.View style={[styles.button, sizeStyle]}>
-                    <TouchableHighlight style={{height:72, width:72, alignItems: 'center', justifyContent: 'center'}} onLongPress={this.handlePressIn} onPressOut={this.handlePressOut} underlayColor="#7F58FF">
+                    <TouchableHighlight style={{height:72, width:72, alignItems: 'center', justifyContent: 'center'}} onPress={this.props.navigation.navigate('Photo')} onLongPress={this.handlePressIn} onPressOut={this.handlePressOut} underlayColor="#7F58FF">
                         <Icon name="plus" size={20} color="white" />
                     </TouchableHighlight>
                 </Animated.View>
@@ -111,6 +112,8 @@ export default class AddButton extends React.Component {
         );
     }
 }
+
+export default withNavigation(AddButton)
 
 const styles = StyleSheet.create({
 //ADD BUTTON

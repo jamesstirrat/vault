@@ -18,7 +18,7 @@ export default function VaultHeader() {
 const styles = StyleSheet.create({
 header: {
   width: '100%',
-  height: 70,
+  height: 80,
   flexDirection: 'row',
   justifyContent: 'center',
   alignItems: 'flex-end',
@@ -29,17 +29,19 @@ headerBundle: {
   marginRight: 'auto',
   alignItems: 'center',
   paddingLeft: 5,
-  width: '100%'
+  width: '100%',
+  marginBottom: 5
 },
 headerText: {
   fontWeight: 'bold',
   fontSize: 42,
   color: 'black',
-  paddingLeft: 5,
+  paddingLeft: 2,
 },
 logo: {
-  height: 80,
-  width: 80,
+  height: 65,
+  width: 65,
+  left: 3,
   alignContent: 'center',
   justifyContent: 'center'
 },

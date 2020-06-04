@@ -6,6 +6,9 @@ import { createAppContainer } from 'react-navigation';
 import { createStackNavigator} from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 
+//Import Icons
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 //screens
 import VaultScreen from './pages/VaultScreen';
 
@@ -20,20 +23,20 @@ const ModalNavigator = createStackNavigator({
                 Photo: { screen: AddPhotoModal,
                         navigationOptions: {
                           headerMode: false,
-                          tabBarIcon: ({ tintColor }) => <Feather name="image" size={24} color="grey" />
+                          tabBarIcon: ({ tintColor }) => <Icon name="image" size={20} color="grey" />
                          }
                       },
                 Camera: { screen: ModalCamera,
                           navigationOptions: {
                             headerMode: false,
-                            tabBarIcon: ({ tintColor }) => <Feather name="camera" size={24} color="grey" />,
+                            tabBarIcon: ({ tintColor }) => <Icon name="camera" size={20} color="grey" />,
                             tabBarVisible: false
                         }
                      },
                 Text: { screen: AddTextModal,
                          navigationOptions: {
                            headerMode: false,
-                           tabBarIcon: ({ tintColor }) => <Feather name="type" size={24} color="grey" />
+                           tabBarIcon: ({ tintColor }) => <Icon name="font" size={20} color="grey" />
                        }
                    },
                }),
@@ -64,5 +67,12 @@ const App = createStackNavigator({
       headerShown: false
     },
   },
-});
+addPhotoModal: { screen: ModalContainer }
+            }, {
+                mode: 'modal',
+                headerMode: 'none',
+                transparentCard: true,
+        }
+
+    )
 export default createAppContainer(App);
