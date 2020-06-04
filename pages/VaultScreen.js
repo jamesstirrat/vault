@@ -157,8 +157,7 @@ export default class VaultScreen extends React.Component {
             keyExtractor={item => item.id}
             numColumns= {3}
           />
-          <Myform />
-          <View style={{alignItems: 'center', bottom: 65}}>
+          <View style={{alignItems: 'center', bottom: 40}}>
             <AddButton/>
           </View>
         </SafeAreaView>

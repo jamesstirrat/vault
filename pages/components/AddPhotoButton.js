@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableHighlight, TouchableOpacity, Animated } from "react-native";
-
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 
 export default class AddButton extends React.Component {
@@ -11,13 +11,16 @@ export default class AddButton extends React.Component {
         Animated.sequence([
             Animated.timing(this.buttonSize, {
                 toValue: 0.95,
-                duration: 0
+                duration: 0,
+                useNativeDriver: false
             }),
             Animated.timing(this.buttonSize, {
-                toValue: 1
+                toValue: 1,
+                useNativeDriver: false
             }),
             Animated.timing(this.mode, {
-                toValue: this.mode._value === 0 ? 1 : 0
+                toValue: this.mode._value === 0 ? 1 : 0,
+                useNativeDriver: false
             })
         ]).start();
 
@@ -28,13 +31,16 @@ export default class AddButton extends React.Component {
         Animated.sequence([
             Animated.timing(this.buttonSize, {
                 toValue: 0.95,
-                duration: 0
+                duration: 0,
+                useNativeDriver: false
             }),
             Animated.timing(this.buttonSize, {
-                toValue: 1
+                toValue: 1,
+                useNativeDriver: false
             }),
             Animated.timing(this.mode, {
-                toValue: this.mode._value === 1 ? 0 : 0
+                toValue: this.mode._value === 1 ? 0 : 0,
+                useNativeDriver: false
             })
         ]).start();
 
@@ -80,25 +86,25 @@ export default class AddButton extends React.Component {
             <View style={{ position: "absolute", alignItems: "center" }}>
                 <Animated.View style={{ position: "absolute", left: photoX, top: photoY }}>
                     <View style={styles.secondaryButton}>
-                        <Text>A</Text>
+                        <Icon name="image" size={20} color="#1A86CB" />
                     </View>
                 </Animated.View>
 
                 <Animated.View style={{ position: "absolute", left: cameraX, top: cameraY }}>
                     <View style={styles.secondaryButton}>
-                        <Text>A</Text>
+                        <Icon name="camera" size={20} color="white" />
                     </View>
                 </Animated.View>
 
                 <Animated.View style={{ position: "absolute", left: textX, top: textY }}>
                     <View style={styles.secondaryButton}>
-                        <Text>A</Text>
+                        <Icon name="text" size={20} color="white" />
                     </View>
                 </Animated.View>
 
                 <Animated.View style={[styles.button, sizeStyle]}>
                     <TouchableHighlight style={{height:72, width:72, alignItems: 'center', justifyContent: 'center'}} onLongPress={this.handlePressIn} onPressOut={this.handlePressOut} underlayColor="#7F58FF">
-                        <Text>A</Text>
+                        <Icon name="plus" size={20} color="white" />
                     </TouchableHighlight>
                 </Animated.View>
             </View>
