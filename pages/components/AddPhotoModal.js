@@ -3,83 +3,78 @@
 
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, KeyboardAvoidingView, TextInput, Image, FlatList } from 'react-native';
-import * as MediaLibrary from 'expo-media-library';
-import CameraRollPicker from 'react-native-camera-roll-picker'
-import { Permissions } from "expo";
-import { AntDesign } from '@expo/vector-icons';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
-import { FontAwesome5, Feather } from "@expo/vector-icons";
 
 import ModalContainer from '../../App'
 
 const MAX_PHOTOS = 20;
 
 export default class AddPhotoModal extends React.Component {
-    state = {
-        images: [],
-        selected: null
-    }
-
-    componentDidMount() {
-        this.getPhoto();
-    }
-
-    async getCameraRollPermissions() {
-    const { Permissions } = Expo;
-    const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-    if (status === 'granted') {
-    } else {
-      /// Handle permissions denied;
-      console.log('Uh oh! The user has not granted us permission.');
-    }
-  }
-
-    getPhoto = async after => {
-        const res = await MediaLibrary.getAssetsAsync({
-            first: MAX_PHOTOS,
-        })
-
-        this.setState({
-            images: [ ...this.state.images, ...res.edges],
-        })
-        console.log('res', res)
-    }
-
-    onSelect = selected => {
-        this.setState({ selected });
-    }
-
-    renderItem = ({ item }) => {
-        return (
-            <View style={styles.photoPickerWrapper}>
-                <Image source={{ uri: item.node.image.uri}} style={styles.photoPickerImage}/>
-            </View>
-        )
-    }
-
-    keyExtractor = (item) => item.node.image.filename;
-
-    render() {
-        return(
-                  <View style={{backgroundColor:"#000000CC", flex:1}}>
-                    <View style={{ backgroundColor:"#ffffff", marginLeft: 0, marginRight: 0, marginTop: 180, padding: 20, borderTopLeftRadius: 20, borderTopRightRadius: 20, flex: 1, }}>
-                        <View style={styles.header}>
-                            <TouchableOpacity style={{position: 'absolute'}} onPress={() => this.props.navigation.navigate('Home')}>
-                                <Text style={styles.buttonFont}>Back</Text>
-                            </TouchableOpacity>
-                            <Text style={styles.headerText}>Choose Photo</Text>
-                            <TouchableOpacity style={{position: 'absolute', right: 0}} onPress={() => this.props.navigation.navigate('Upload')}>
-                                <Text style={styles.buttonFont}>Continue</Text>
-                            </TouchableOpacity>
-                            <CameraRollPicker
-  callback={this.getSelectedImages} />
-                        </View>
-                    </View>
-                 </View>
-        );
-    }
+  //   state = {
+  //       images: [],
+  //       selected: null
+  //   }
+  //
+  //   componentDidMount() {
+  //       this.getPhoto();
+  //   }
+  //
+  //   async getCameraRollPermissions() {
+  //   const { Permissions } = Expo;
+  //   const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+  //   if (status === 'granted') {
+  //   } else {
+  //     /// Handle permissions denied;
+  //     console.log('Uh oh! The user has not granted us permission.');
+  //   }
+  // }
+  //
+  //   getPhoto = async after => {
+  //       const res = await MediaLibrary.getAssetsAsync({
+  //           first: MAX_PHOTOS,
+  //       })
+  //
+  //       this.setState({
+  //           images: [ ...this.state.images, ...res.edges],
+  //       })
+  //       console.log('res', res)
+  //   }
+  //
+  //   onSelect = selected => {
+  //       this.setState({ selected });
+  //   }
+  //
+  //   renderItem = ({ item }) => {
+  //       return (
+  //           <View style={styles.photoPickerWrapper}>
+  //               <Image source={{ uri: item.node.image.uri}} style={styles.photoPickerImage}/>
+  //           </View>
+  //       )
+  //   }
+  //
+  //   keyExtractor = (item) => item.node.image.filename;
+  //
+  //   render() {
+  //       return(
+  //                 <View style={{backgroundColor:"#000000CC", flex:1}}>
+  //                   <View style={{ backgroundColor:"#ffffff", marginLeft: 0, marginRight: 0, marginTop: 180, padding: 20, borderTopLeftRadius: 20, borderTopRightRadius: 20, flex: 1, }}>
+  //                       <View style={styles.header}>
+  //                           <TouchableOpacity style={{position: 'absolute'}} onPress={() => this.props.navigation.navigate('Home')}>
+  //                               <Text style={styles.buttonFont}>Back</Text>
+  //                           </TouchableOpacity>
+  //                           <Text style={styles.headerText}>Choose Photo</Text>
+  //                           <TouchableOpacity style={{position: 'absolute', right: 0}} onPress={() => this.props.navigation.navigate('Upload')}>
+  //                               <Text style={styles.buttonFont}>Continue</Text>
+  //                           </TouchableOpacity>
+  //                           <CameraRollPicker
+  // callback={this.getSelectedImages} />
+  //                       </View>
+  //                   </View>
+  //                </View>
+  //       );
+  //   }
 }
 
 const styles = StyleSheet.create({

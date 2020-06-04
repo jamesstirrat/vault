@@ -1,8 +1,7 @@
 import React from 'react';
 import { Text, Image, View, TextInput, TouchableHighlight, TouchableOpacity } from 'react-native'
-import { Camera } from 'expo-camera';
-import * as Permissions from 'expo-permissions';
-import { FontAwesome5, Feather } from "@expo/vector-icons";
+import { RNCamera } from 'react-native-camera';
+import { PERMISSIONS, check, request } from 'react-native-permissions'
 
 import ToolbarComponent from './ToolbarComponent'
 import styles from './../Styles';
@@ -41,9 +40,9 @@ export default class ModalCamera extends React.Component {
     // };
 
     async componentDidMount() {
-        const camera = await Permissions.askAsync(Permissions.CAMERA);
-        const audio = await Permissions.askAsync(Permissions.AUDIO_RECORDING);
-        const hasCameraPermission = (camera.status === 'granted' && audio.status === 'granted');
+        const camera = await check(PERMISSIONS.IOS.CAMERA);
+        const audio = await Permissions.askAsync(PERMISSIONS.IOS.AUDIO_RECORDING);
+        const hasCameraPermission = (camera === RESULTS.GRANTED && audio === RESULTS.GRANTED);
 
         this.setState({ hasCameraPermission });
     };

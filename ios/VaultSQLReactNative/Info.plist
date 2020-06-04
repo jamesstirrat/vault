@@ -53,5 +53,13 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSCameraUsageDescription</key>
+	<string>To Post, Vault Needs Your Camera</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>To Post, Vault Needs To Access Your Photo Library</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>To Post, Vault Needs To Access Your Photo Library</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>To Post with Audio, Vault Needs Your Microphone</string>
 </dict>
 </plist>
