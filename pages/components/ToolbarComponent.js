@@ -5,12 +5,12 @@ import { StyleSheet, View, TouchableWithoutFeedback, TouchableOpacity } from 're
 
 import styles from '../Styles'
 
-const { FlashMode: CameraFlashModes, Type: CameraTypes } = Camera.Constants;
+const { FlashMode: CameraFlashModes, Type: CameraTypes } = RNCamera.Constants;
 
 export default ({
     capturing = false,
-    cameraType = CameraTypes.back,
-    flashMode = CameraFlashModes.off,
+    cameraType = RNCameraTypes.back,
+    flashMode = RNCameraFlashModes.off,
     setFlashMode, setCameraType,
     onCaptureIn, onCaptureOut, onLongCapture, onShortCapture,
 }) => (
