@@ -11,23 +11,21 @@ import ImagePicker from 'react-native-image-picker';
 import ModalContainer from '../../App'
 import Myform from './Myform'
 
-const MAX_PHOTOS = 20;
-
 export default class AddPhotoModal extends React.Component {
     render() {
         return(
                   <View style={{backgroundColor:"#000000CC", flex:1}}>
                     <View style={{ backgroundColor:"#ffffff", marginLeft: 0, marginRight: 0, marginTop: 180, padding: 20, borderTopLeftRadius: 20, borderTopRightRadius: 20, flex: 1, }}>
                         <View style={styles.header}>
-                            <TouchableOpacity style={{position: 'absolute'}} onPress={() => this.props.navigation.navigate('Home')}>
+                            <TouchableOpacity style={{position: 'absolute'}} onPress={() => this.props.navigation.navigate('Vault')}>
                                 <Text style={styles.buttonFont}>Back</Text>
                             </TouchableOpacity>
                             <Text style={styles.headerText}>Choose Photo</Text>
                             <TouchableOpacity style={{position: 'absolute', right: 0}} onPress={() => this.props.navigation.navigate('Upload')}>
                                 <Text style={styles.buttonFont}>Continue</Text>
                             </TouchableOpacity>
-                            <Myform />
                         </View>
+                        <Myform />
                     </View>
                  </View>
         );

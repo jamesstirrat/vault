@@ -86,27 +86,27 @@ class AddButton extends React.Component {
         return (
             <View style={{ position: "absolute", alignItems: "center" }}>
                 <Animated.View style={{ position: "absolute", left: photoX, top: photoY }}>
-                    <View style={styles.secondaryButton}>
+                    <TouchableOpacity style={styles.secondaryButton} onPress={() => {this.props.navigation.navigate('Photo')}}>
                         <Icon name="image" size={20} color="#1A86CB" />
-                    </View>
+                    </TouchableOpacity>
                 </Animated.View>
 
                 <Animated.View style={{ position: "absolute", left: cameraX, top: cameraY }}>
-                    <View style={styles.secondaryButton}>
+                    <TouchableOpacity style={styles.secondaryButton} onPress={() => {this.props.navigation.navigate('Camera')}}>
                         <Icon name="camera" size={20} color="#1A86CB" />
-                    </View>
+                    </TouchableOpacity>
                 </Animated.View>
 
                 <Animated.View style={{ position: "absolute", left: textX, top: textY }}>
-                    <View style={styles.secondaryButton}>
+                    <TouchableOpacity style={styles.secondaryButton} onPress={() => {this.props.navigation.navigate('Text')}}>
                         <Icon name="font" size={20} color="#1A86CB" />
-                    </View>
+                    </TouchableOpacity>
                 </Animated.View>
 
                 <Animated.View style={[styles.button, sizeStyle]}>
-                    <TouchableHighlight style={{height:72, width:72, alignItems: 'center', justifyContent: 'center'}} onPress={this.props.navigation.navigate('Photo')} onLongPress={this.handlePressIn} onPressOut={this.handlePressOut} underlayColor="#7F58FF">
+                    <TouchableOpacity style={{height:72, width:72, alignItems: 'center', justifyContent: 'center'}} onPress={() => {this.props.navigation.navigate('Photo')}} onLongPress={this.handlePressIn} onPressOut={this.handlePressOut} underlayColor="#7F58FF">
                         <Icon name="plus" size={20} color="white" />
-                    </TouchableHighlight>
+                    </TouchableOpacity>
                 </Animated.View>
             </View>
         );

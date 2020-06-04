@@ -67,7 +67,8 @@ const App = createStackNavigator({
       headerShown: false
     },
   },
-addPhotoModal: { screen: ModalContainer }
+  initialRouteName: 'Vault',
+  addPhotoModal: { screen: ModalContainer }
             }, {
                 mode: 'modal',
                 headerMode: 'none',

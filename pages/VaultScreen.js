@@ -146,7 +146,7 @@ export default class VaultScreen extends React.Component {
                   borderRadius: 10,
                   width: '92%',
                   alignSelf: 'center',
-                  marginBottom: 20
+                  marginBottom: 10
                 }}
                 // onChangeText={value => this.searchContacts(value)}
             />
@@ -157,8 +157,8 @@ export default class VaultScreen extends React.Component {
             keyExtractor={item => item.id}
             numColumns= {3}
           />
-          <View style={{alignItems: 'center', bottom: 25}}>
-            <AddButton/>
+          <View style={{alignItems: 'center', bottom: 15}}>
+            <AddButton />
           </View>
         </SafeAreaView>
       );

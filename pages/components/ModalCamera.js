@@ -13,10 +13,10 @@ export default class ModalCamera extends React.Component {
         capture: [],
         captured: false,
         //flash off by default
-        flashMode: Camera.Constants.FlashMode.off,
+        flashMode: RNCamera.Constants.FlashMode.off,
         capturing: null,
         // start the back camera by default
-        cameraType: Camera.Constants.Type.back,
+        cameraType: RNCamera.Constants.Type.back,
         hasCameraPermission: null,
     };
 
@@ -41,7 +41,7 @@ export default class ModalCamera extends React.Component {
 
     async componentDidMount() {
         const camera = await check(PERMISSIONS.IOS.CAMERA);
-        const audio = await Permissions.askAsync(PERMISSIONS.IOS.AUDIO_RECORDING);
+        const audio = await check(PERMISSIONS.IOS.AUDIO_RECORDING);
         const hasCameraPermission = (camera === RESULTS.GRANTED && audio === RESULTS.GRANTED);
 
         this.setState({ hasCameraPermission });
