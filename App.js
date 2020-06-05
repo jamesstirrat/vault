@@ -33,7 +33,7 @@ const ModalNavigator = createStackNavigator({
                             tabBarVisible: false
                         }
                      },
-                Text: { screen: AddTextModal,
+                Thoughts: { screen: AddTextModal,
                          navigationOptions: {
                            headerMode: false,
                            tabBarIcon: ({ tintColor }) => <Icon name="font" size={20} color="grey" />

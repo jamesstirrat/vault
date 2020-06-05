@@ -21,11 +21,11 @@ export default class AddPhotoModal extends React.Component {
                                 <Text style={styles.buttonFont}>Back</Text>
                             </TouchableOpacity>
                             <Text style={styles.headerText}>Choose Photo</Text>
-                            <TouchableOpacity style={{position: 'absolute', right: 0}} onPress={() => this.props.navigation.navigate('Upload')}>
-                                <Text style={styles.buttonFont}>Continue</Text>
+                            <TouchableOpacity style={{position: 'absolute', right: 0}} onPress={() => this.props.onSubmit()}>
+                                <Text style={styles.buttonFont}>Post</Text>
                             </TouchableOpacity>
                         </View>
-                        <Myform />
+                        <Myform style={{top: 0}}/>
                     </View>
                  </View>
         );

@@ -105,9 +105,6 @@ componentDidMount() {
 
               {this.showPickedImage()}
 
-              <TouchableHighlight style={styles.submit} onPress={this.onSubmit}>
-                <Text>Submit</Text>
-              </TouchableHighlight>
             </View>
         </View>
     );

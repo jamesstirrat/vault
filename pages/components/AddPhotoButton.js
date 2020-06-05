@@ -98,7 +98,7 @@ class AddButton extends React.Component {
                 </Animated.View>
 
                 <Animated.View style={{ position: "absolute", left: textX, top: textY }}>
-                    <TouchableOpacity style={styles.secondaryButton} onPress={() => {this.props.navigation.navigate('Text')}}>
+                    <TouchableOpacity style={styles.secondaryButton} onPress={() => {this.props.navigation.navigate('Thoughts')}}>
                         <Icon name="font" size={20} color="#1A86CB" />
                     </TouchableOpacity>
                 </Animated.View>

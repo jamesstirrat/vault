@@ -1,7 +1,8 @@
 import React from 'react';
 import { Text, Image, View, TextInput, TouchableHighlight, TouchableOpacity } from 'react-native'
 import { RNCamera } from 'react-native-camera';
-import { PERMISSIONS, check, request } from 'react-native-permissions'
+import { PERMISSIONS, RESULTS, check, request } from 'react-native-permissions'
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import ToolbarComponent from './ToolbarComponent'
 import styles from './../Styles';
@@ -58,11 +59,11 @@ export default class ModalCamera extends React.Component {
                     <Image source={this.state.capture} />
                 </View>
                 <TouchableOpacity style={{position: 'absolute', left: 30, top: 40}} onPress={() => this.state.captured = false}>
-                    <Feather name='x' color={'white'} size={32} style={styles.icon}/>
+                    <Icon name="camera" size={20} color="#1A86CB" />
                 </TouchableOpacity>
 
                 <TouchableOpacity style={{position: 'absolute', right: 50, top: 40}} onPress={() => this.props.navigation.navigate('Upload')}>
-                    <Feather name='check' color={'white'} size={32} style={styles.icon}/>
+                    <Icon name="camera" size={20} color="#1A86CB" />
                 </TouchableOpacity>
             </View>
         )
@@ -77,7 +78,7 @@ export default class ModalCamera extends React.Component {
                         ref={camera => this.camera = camera}
                     />
                     <TouchableOpacity style={{position: 'absolute', right: 50, top: 40}} onPress={() => this.props.navigation.navigate('Home')}>
-                        <Feather name='x' color={'white'} size={32} style={styles.icon}/>
+                        <Icon name="camera" size={20} color="#1A86CB" />
                     </TouchableOpacity>
                 </View>
                 <ToolbarComponent
@@ -102,7 +103,8 @@ export default class ModalCamera extends React.Component {
         if (hasCameraPermission === null) {
             return <View />;
         } else if (hasCameraPermission === false) {
-            return <Text>Access to camera has been denied.</Text>;
+            //should return an option to change settings
+            return null
         }
         return (
             <View style={{flex:1}}>
