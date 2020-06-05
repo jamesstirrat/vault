@@ -1,15 +1,6 @@
 import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-  TouchableHighlight,
-  Image,
-  Alert
-} from 'react-native';
+import { SafeAreaView, StyleSheet, ScrollView, View, Text, StatusBar, TouchableHighlight, TouchableOpacity, Image, Alert, Dimensions } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import ImagePicker from 'react-native-image-picker';
 import { openDatabase } from 'react-native-sqlite-storage';
@@ -51,19 +42,20 @@ class Myform extends React.Component {
         return (
           <Image
           source={{ uri: imageData.uri }}
-          style={{ alignSelf: 'center', width: 200, height: 200 }}
+          style={{ alignSelf: 'center', width: Dimensions.get('window').width, height: Dimensions.get('window').width }}
           />
         );
     } else {
       return (
         <View>
-          <TouchableHighlight
+          <TouchableOpacity
             style={styles.addPhoto}
             onPress={this.getPhotoFromGallery}
           >
-            <Text style={styles.addPhotoText}>Add Photo</Text>
 
-          </TouchableHighlight>
+            <Icon name="image" size={164} color="#F1F1F2" />
+
+          </TouchableOpacity>
         </View>
       );
     }
@@ -145,8 +137,8 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   addPhoto: {
-    alignSelf: 'center',
+    alignItems: 'center',
     justifyContent: 'center',
-    width: '90%'
+    width: Dimensions.get('window').width
 }
 });

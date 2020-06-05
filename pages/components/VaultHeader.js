@@ -18,7 +18,7 @@ export default function VaultHeader() {
 const styles = StyleSheet.create({
 header: {
   width: '100%',
-  height: 80,
+  height: 70,
   flexDirection: 'row',
   justifyContent: 'center',
   alignItems: 'flex-end',

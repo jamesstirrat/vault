@@ -51,7 +51,7 @@ class AddButton extends React.Component {
     render() {
         const photoX = this.mode.interpolate({
             inputRange: [0, 1],
-            outputRange: [-30, -75]
+            outputRange: [-30, -85]
         });
 
         const photoY = this.mode.interpolate({
@@ -71,7 +71,7 @@ class AddButton extends React.Component {
 
         const textX = this.mode.interpolate({
             inputRange: [0, 1],
-            outputRange: [-20, 25]
+            outputRange: [-20, 35]
         });
 
         const textY = this.mode.interpolate({
