@@ -117,13 +117,13 @@ componentDidMount() {
         tx.executeSql('INSERT INTO items (value) values (?)', [text]);
       },
       null,
-      this.update
+      // this.update
     );
   }
-  update = () => {
-    this.todo && this.todo.update();
-    this.done && this.done.update();
-  };
+  // update = () => {
+  //   this.todo && this.todo.update();
+  //   this.done && this.done.update();
+  // };
 }
 
 

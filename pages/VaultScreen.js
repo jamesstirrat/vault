@@ -17,7 +17,7 @@ export default class VaultScreen extends React.Component {
     items: [],
     itemsFormatted: [],
     photo_id: null,
-    value: '',
+    itemSelected: '',
     searchQuery: ''
   };
 
@@ -41,7 +41,7 @@ export default class VaultScreen extends React.Component {
       return <View style={[styles.item, styles.itemInvisible]} />;
     }
     return (
-      <TouchableOpacity style={styles.item} onPress={this.viewPhoto} key={item.id}>
+      <TouchableOpacity style={styles.item} onPressIn={() => this.setState({ itemSelected: item.id })} onPress={this.viewPhoto} key={item.id}>
               <Image source={{ uri: item.value }} style={{ flex: 1, width: '100%', height: undefined }} />
       </TouchableOpacity>
         );
@@ -84,7 +84,6 @@ export default class VaultScreen extends React.Component {
               value: results.rows.item(0),
             });
           } else {
-              this.forceUpdate()
               Alert.alert(
                 'Failed',
                 'Not Found',
@@ -105,50 +104,49 @@ export default class VaultScreen extends React.Component {
   };
 
 
-  deletePhoto = () => {
-
-    this.selectPhoto()
-
-    const { photo_id } = this.state;
-
-    console.log('delete attempt')
-    console.log(photo_id)
-    db.transaction(tx => {
-      tx.executeSql('DELETE FROM items where id=?', [photo_id],
-        (tx, results) => {
-          console.log('Results', results.rowsAffected);
-          if (results.rowsAffected > 0) {
-            Alert.alert(
-              'Success',
-              'Photo deleted successfully',
-              [
-                {
-                  text: 'Ok',
-                },
-              ],
-              { cancelable: false }
-            );
-          } else {
-            return null;
-          }
-        }
-      );
-    });
-  };
+  // deletePhoto = () => {
+  //
+  //   this.selectPhoto()
+  //
+  //   const { photo_id } = this.state;
+  //
+  //   console.log('delete attempt')
+  //   console.log(photo_id)
+  //   db.transaction(tx => {
+  //     tx.executeSql('DELETE FROM items where id=?', [photo_id],
+  //       (tx, results) => {
+  //         console.log('Results', results.rowsAffected);
+  //         if (results.rowsAffected > 0) {
+  //           Alert.alert(
+  //             'Success',
+  //             'Photo deleted successfully',
+  //             [
+  //               {
+  //                 text: 'Ok',
+  //               },
+  //             ],
+  //             { cancelable: false }
+  //           );
+  //         } else {
+  //           return null;
+  //         }
+  //       }
+  //     );
+  //   });
+  // };
 
   viewPhoto = () => {
 
-    this.selectPhoto()
-
-    const { photo_id } = this.state;
+    const { itemSelected } = this.state;
 
     db.transaction(tx => {
-      tx.executeSql('SELECT FROM items where id=?', [photo_id], (tx, results) => {
+      tx.executeSql('SELECT FROM items where id=?', [itemSelected], (tx, results) => {
           var selection = results.rows.item;
           if (results.rowsAffected > 0) {
+            return console.log('yes');
             this.props.navigate.navigation('PostScreen')
           } else {
-            return null;
+            return console.log('none');
           }
         }
       );
@@ -202,7 +200,7 @@ export default class VaultScreen extends React.Component {
             renderItem={this.renderItem}
             keyExtractor={item => item.id}
             numColumns= {3}
-            extraData={this.state}
+            extraData={this.state.items}
           />
           <View style={{alignItems: 'center', bottom: 0}}>
               <View style={{backgroundColor: 'white', width: '100%', height: 55, alignItems: 'center', justifyContent: 'center'}}>
