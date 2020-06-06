@@ -11,6 +11,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 //screens
 import VaultScreen from './pages/VaultScreen';
+import PostScreen from './pages/VaultScreen';
 
 //components
 import AddPhotoModal from './pages/components/AddPhotoModal';
@@ -65,6 +66,12 @@ const App = createStackNavigator({
     screen: VaultScreen,
     navigationOptions: {
       headerShown: false
+    },
+  },
+  Post: {
+    screen: PostScreen,
+    navigationOptions: {
+      headerShown: true
     },
   },
   initialRouteName: 'Vault',

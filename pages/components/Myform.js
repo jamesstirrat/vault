@@ -52,9 +52,7 @@ class Myform extends React.Component {
             style={styles.addPhoto}
             onPress={this.getPhotoFromGallery}
           >
-
             <Icon name="image" size={164} color="#F1F1F2" />
-
           </TouchableOpacity>
         </View>
       );
@@ -72,6 +70,7 @@ class Myform extends React.Component {
               this.setState({ caption: null, imageData: null, base64URI: null });
               console.log('text')
               console.log('submitted')
+              // this.props.navigate.navigation('Vault'),
 
               Alert.alert(
                 'Success',
@@ -79,11 +78,10 @@ class Myform extends React.Component {
                 [
                   {
                     text: 'Ok!',
-                    // onPress: () =>
-                    //   navigate.navigation('Vault'),
                   },
                 ],
               );
+
       }
   }
 
@@ -104,6 +102,10 @@ componentDidMount() {
             <View style={styles.container}>
 
               {this.showPickedImage()}
+
+              <TouchableHighlight style={styles.submit} onPress={this.onSubmit}>
+                <Text>Submit</Text>
+              </TouchableHighlight>
 
             </View>
         </View>

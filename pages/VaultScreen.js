@@ -1,3 +1,5 @@
+// TODO: update vault screen when submit button is pressed
+
 import React from 'react';
 
 import { View, TextInput, SafeAreaView, Button, Text, Alert, Image, TouchableOpacity, StyleSheet, ScrollView, Platform, TouchableWithoutFeedback, StatusBar, TouchableHighlight, Dimensions, FlatList } from 'react-native';
@@ -38,7 +40,7 @@ export default class VaultScreen extends React.Component {
       return <View style={[styles.item, styles.itemInvisible]} />;
     }
     return (
-      <TouchableOpacity style={styles.item} onPress={this.deletePhoto} key={item.id}>
+      <TouchableOpacity style={styles.item} onPress={this.viewPhoto} key={item.id}>
               <Image source={{ uri: item.value }} style={{ flex: 1, width: '100%', height: undefined }} />
       </TouchableOpacity>
         );
@@ -102,6 +104,25 @@ export default class VaultScreen extends React.Component {
               ],
               { cancelable: false }
             );
+          } else {
+            return null;
+          }
+        }
+      );
+    });
+  };
+
+  viewPhoto = () => {
+
+    this.selectPhoto()
+
+    const { photo_id } = this.state;
+
+    db.transaction(tx => {
+      tx.executeSql('SELECT FROM items where id=?', [photo_id], (tx, results) => {
+          var selection = results.rows.item;
+          if (results.rowsAffected > 0) {
+            this.props.navigate.navigation('PostScreen')
           } else {
             return null;
           }
