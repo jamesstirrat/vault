@@ -17,7 +17,8 @@ export default class VaultScreen extends React.Component {
     items: [],
     itemsFormatted: [],
     photo_id: null,
-    value: ''
+    value: '',
+    searchQuery: ''
   };
 
   formatItems = () => {
@@ -46,9 +47,31 @@ export default class VaultScreen extends React.Component {
         );
     };
 
+  searchItems = (value) => {
+    //search SQLite with search query and return the items that match that query
+    db.transaction(tx => {
+          tx.executeSql(
+            'SELECT * FROM items where caption = ?, type = ?',
+            [value],
+            (tx, results) => {
+                const filteredItems = []
+                var len = results.rows.length;
+                if (len > 0) {
+                    for (let i = 0; i < results.rows.length; ++i) {
+                        filteredItems.push(results.rows.item(i));
+                        }
+                        filteredItems.reverse()
+                        this.setState({ items: filteredItems });
+                    }
+                }
+            )
+        });
+    }
+
   selectPhoto = () => {
     const { photo_id } = this.state;
     console.log(this.photo_id);
+    this.update()
     db.transaction(tx => {
       tx.executeSql(
         'SELECT * FROM items where id = ?',
@@ -61,6 +84,7 @@ export default class VaultScreen extends React.Component {
               value: results.rows.item(0),
             });
           } else {
+              this.forceUpdate()
               Alert.alert(
                 'Failed',
                 'Not Found',
@@ -133,22 +157,23 @@ export default class VaultScreen extends React.Component {
 
   async componentDidMount() {
       this.formatItems()
-      db.transaction(tx => {
-          tx.executeSql(`SELECT * FROM items;`, [], (tx, results) => {
-              var temp = [];
-              for (let i = 0; i < results.rows.length; ++i) {
-                temp.push(results.rows.item(i));
-              }
-              temp.reverse()
-              this.setState({
-                items: temp,
-              });
-              this.setState({
-                  itemsFormatted: this.state.items.concat(this.state.itemsFormatted)
-              })
-              console.log(this.state.items.id.count)
-            });
-        })
+      this.update()
+      // db.transaction(tx => {
+      //     tx.executeSql(`SELECT * FROM items;`, [], (tx, results) => {
+      //         var temp = [];
+      //         for (let i = 0; i < results.rows.length; ++i) {
+      //           temp.push(results.rows.item(i));
+      //         }
+      //         temp.reverse()
+      //         this.setState({
+      //           items: temp,
+      //         });
+      //         this.setState({
+      //             itemsFormatted: this.state.items.concat(this.state.itemsFormatted)
+      //         })
+      //         console.log(this.state.items.id.count)
+      //       });
+      //   })
     }
 
     render() {
@@ -169,7 +194,7 @@ export default class VaultScreen extends React.Component {
                   alignSelf: 'center',
                   marginBottom: 10
                 }}
-                // onChangeText={value => this.searchContacts(value)}
+                onChangeText={value => this.searchItems(value)}
             />
             <FlatList
             data={this.state.items, this.state.itemsFormatted}
@@ -177,6 +202,7 @@ export default class VaultScreen extends React.Component {
             renderItem={this.renderItem}
             keyExtractor={item => item.id}
             numColumns= {3}
+            extraData={this.state}
           />
           <View style={{alignItems: 'center', bottom: 0}}>
               <View style={{backgroundColor: 'white', width: '100%', height: 55, alignItems: 'center', justifyContent: 'center'}}>
@@ -189,13 +215,24 @@ export default class VaultScreen extends React.Component {
       );
     }
 
-  //update function to load items from DB
-  update() {
-    db.transaction(tx => {
-      tx.executeSql(
-        `select * from items`,
-        (_, { rows: { _array } }) => this.setState({ items: _array })
-      );
-    });
-  }
+    //update function to load items from DB
+    update() {
+        this.setState({ items: [] })
+        db.transaction(tx => {
+            tx.executeSql(`SELECT * FROM items;`, [], (tx, results) => {
+                var temp = [];
+                for (let i = 0; i < results.rows.length; ++i) {
+                  temp.push(results.rows.item(i));
+                }
+                temp.reverse()
+                this.setState({
+                  items: temp,
+                });
+                this.setState({
+                    itemsFormatted: this.state.items.concat(this.state.itemsFormatted)
+                })
+                console.log(this.state.items.id.count)
+              });
+          })
+    }
 }

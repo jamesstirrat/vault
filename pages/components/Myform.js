@@ -131,9 +131,10 @@ export default withNavigation(Myform);
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    height: Dimensions.get('window').width,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginTop: 5
   },
   addPhoto: {
     alignItems: 'center',

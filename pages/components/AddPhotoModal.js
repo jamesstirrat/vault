@@ -7,6 +7,7 @@ import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import ImagePicker from 'react-native-image-picker';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import ModalContainer from '../../App'
 import Myform from './Myform'
@@ -14,7 +15,7 @@ import Myform from './Myform'
 export default class AddPhotoModal extends React.Component {
     render() {
         return(
-                  <View style={{backgroundColor:"#000000CC", flex:1}}>
+                  <KeyboardAvoidingView style={{backgroundColor:"#000000CC", flex:1}}>
                     <View style={{ backgroundColor:"#ffffff", marginLeft: 0, marginRight: 0, marginTop: 180, padding: 20, borderTopLeftRadius: 20, borderTopRightRadius: 20, flex: 1, }}>
                         <View style={styles.header}>
                             <TouchableOpacity style={{position: 'absolute'}} onPress={() => this.props.navigation.navigate('Vault')}>
@@ -25,9 +26,19 @@ export default class AddPhotoModal extends React.Component {
                                 <Text style={styles.buttonFont}>Post</Text>
                             </TouchableOpacity>
                         </View>
-                        <Myform style={{top: 0}}/>
+                        <View style={styles.photoUpload}>
+                        <Myform />
+                            <View style={styles.uploadTextInput}>
+                                <Icon name="comments" size={20} color="grey" />
+                                <TextInput style={{width: '100%', paddingLeft: 5, fontSize: 18}}
+                                    placeholder="What do you want to say?"
+                                    // onChangeText={this.changeText.bind(this)}
+                                    multiline={true}
+                                    />
+                            </View>
+                        </View>
                     </View>
-                 </View>
+                 </KeyboardAvoidingView>
         );
     }
 }
@@ -89,5 +100,15 @@ imageWrapper: {
 },
 image: {
     flex: 1
+},
+uploadTextInput: {
+  flexDirection: 'row',
+  left: 20,
+  width: '100%',
+  top: 20
+},
+photoUpload: {
+  flex: 1,
+  flexDirection: 'column'
 }
 });
