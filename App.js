@@ -60,25 +60,30 @@ const ModalNavigator = createStackNavigator({
 const ModalContainer = createAppContainer(ModalNavigator);
 
 const App = createStackNavigator({
-  Vault: {
-    screen: VaultScreen,
-    navigationOptions: {
-      headerShown: false
-    },
-  },
-  Post: {
-    screen: PostScreen,
-    navigationOptions: {
-      headerShown: false
-    },
-  },
-  initialRouteName: 'Vault',
-  addPhotoModal: { screen: ModalContainer }
+  default: createStackNavigator({
+      Vault: {
+        screen: VaultScreen,
+        navigationOptions: {
+            headerShown: false
+        },
+      },
+      Post: {
+        screen: PostScreen,
+        navigationOptions: {
+          title: 'View Post'
+        },
+      },
+      initialRouteName: 'Vault',
+  }),
+      addPhotoModal: { screen: ModalContainer }
             }, {
-                mode: 'modal',
-                headerMode: 'none',
-                transparentCard: true,
-        }
+                    mode: 'modal',
+                    headerMode: 'none',
+                    transparentCard: true,
+                }
+            )
 
-    )
+        // initialRouteName: 'Vault',
+
+
 export default createAppContainer(App);
