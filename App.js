@@ -69,7 +69,7 @@ const App = createStackNavigator({
   Post: {
     screen: PostScreen,
     navigationOptions: {
-      headerShown: true
+      headerShown: false
     },
   },
   initialRouteName: 'Vault',

@@ -138,22 +138,11 @@ export default class VaultScreen extends React.Component {
 
   viewPhoto = () => {
 
-    const { itemSelected } = this.state;
-    console.log(itemSelected)
-    this.props.navigate.navigation('Post', itemSelected)
-
-    db.transaction(tx => {
-      tx.executeSql('SELECT FROM items where id=?', [itemSelected], (tx, results) => {
-          var selection = results.rows.item;
-          if (results.rowsAffected > 0) {
-            return console.log('yes');
-
-          } else {
-            return console.log('none');
-          }
-        }
-      );
-    });
+    // pass through selected item to the post screen
+    // const { itemSelected } = this.state;
+    console.log(this.state.itemSelected)
+    // this.props.navigation.navigate('Post', itemSelected)
+    this.props.navigation.navigate('Post')
   };
 
   async componentDidMount() {

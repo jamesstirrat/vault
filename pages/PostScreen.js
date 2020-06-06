@@ -8,18 +8,18 @@ var db = openDatabase({ name: 'UserDatabase.db' });
 import styles from './Styles'
 
 export default class VaultScreen extends React.Component {
-    //when we pass a variable through react navigation, how do we access it?
+    //when we pass a variable through react navigation, how do we access it? eg we want to access the param itemSelected that was passed in navigation
     state = {
-      item: itemSelected
+      item: null
     };
 
     async componentDidMount() {
         const { item } = this.state
-        db.transaction(tx => {
-            tx.executeSql(`SELECT FROM items where id = ?;`, [item], (tx, results) => {
-                //set constants for each piece of data returned. Eg data type, caption, date made
-              });
-          })
+        // db.transaction(tx => {
+        //     tx.executeSql(`SELECT FROM items where id = ?;`, [item], (tx, results) => {
+        //         //set constants for each piece of data returned. Eg data type, caption, date made
+        //       });
+        //   })
       }
 
     renderItems = () => {
@@ -30,8 +30,12 @@ export default class VaultScreen extends React.Component {
       return (
         <SafeAreaView style={{flex:1, backgroundColor: 'white'}}>
 
+        <View style={{flex:1, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center'}}>
+            <Text style={{fontSize: 24, fontWeight: '800'}}> Post Data Here </Text>
+        </View>
+
         {this.renderItems}
-        
+
         </SafeAreaView>
       );
     }
