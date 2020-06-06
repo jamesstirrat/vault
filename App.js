@@ -11,13 +11,12 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 //screens
 import VaultScreen from './pages/VaultScreen';
-import PostScreen from './pages/VaultScreen';
+import PostScreen from './pages/PostScreen';
 
 //components
 import AddPhotoModal from './pages/components/AddPhotoModal';
 import AddTextModal from './pages/components/AddTextModal';
 import ModalCamera from './pages/components/ModalCamera'
-import UploadScreen from './pages/components/UploadScreen'
 
 const ModalNavigator = createStackNavigator({
             default: createBottomTabNavigator({
@@ -40,8 +39,7 @@ const ModalNavigator = createStackNavigator({
                            tabBarIcon: ({ tintColor }) => <Icon name="font" size={20} color="grey" />
                        }
                    },
-               }),
-             Upload: { screen: UploadScreen }
+               })
          },
              {
                 transparentCard: true,

@@ -8,6 +8,7 @@ import { openDatabase } from 'react-native-sqlite-storage';
 var db = openDatabase({ name: 'UserDatabase.db' });
 
 import styles from './Styles'
+
 import VaultHeader from './components/VaultHeader'
 import AddButton from './components/AddPhotoButton'
 import Myform from './components/Myform';
@@ -138,13 +139,15 @@ export default class VaultScreen extends React.Component {
   viewPhoto = () => {
 
     const { itemSelected } = this.state;
+    console.log(itemSelected)
+    this.props.navigate.navigation('Post', itemSelected)
 
     db.transaction(tx => {
       tx.executeSql('SELECT FROM items where id=?', [itemSelected], (tx, results) => {
           var selection = results.rows.item;
           if (results.rowsAffected > 0) {
             return console.log('yes');
-            this.props.navigate.navigation('PostScreen')
+
           } else {
             return console.log('none');
           }
