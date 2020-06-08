@@ -61,7 +61,9 @@ import ModalCamera from './pages/components/ModalCamera'
               return (
                   <Tab.Navigator
                     headerMode='none'
-                    mode='modal'
+                    screenOptions={{
+                    cardStyle: {backgroundColor: 'transparent'},
+                    transparentCard: true }}
                     >
                     <Tab.Screen
                       name="Photo"
@@ -81,6 +83,30 @@ import ModalCamera from './pages/components/ModalCamera'
 
             const Stack = createStackNavigator();
 
+            function Main() {
+              return (
+                    <Stack.Navigator
+                      initialRouteName="Home"
+                    >
+                      <Stack.Screen
+                        name="Vault"
+                        component={VaultScreen}
+                        options={{ headerShown: false }}
+                      />
+                      <Stack.Screen
+                        name="Post"
+                        component={PostScreen}
+                        options={{ title: 'View Post' }}
+                      />
+                      <Stack.Screen
+                        name="Settings"
+                        component={SettingsScreen}
+                        options={{ title: 'Settings' }}
+                      />
+                    </Stack.Navigator>
+              );
+            }
+
             function App() {
               return (
                   <PaperProvider theme={theme}>
@@ -89,22 +115,13 @@ import ModalCamera from './pages/components/ModalCamera'
                           initialRouteName="Home"
                           mode='modal'
                           screenOptions={{
-                          cardStyle: {backgroundColor: 'transparent'}}}
+                          cardStyle: {backgroundColor: 'transparent'},
+                          transparentCard: true }}
                         >
                           <Stack.Screen
                             name="Vault"
-                            component={VaultScreen}
+                            component={Main}
                             options={{ headerShown: false }}
-                          />
-                          <Stack.Screen
-                            name="Post"
-                            component={PostScreen}
-                            options={{ title: 'View Post' }}
-                          />
-                          <Stack.Screen
-                            name="Settings"
-                            component={SettingsScreen}
-                            options={{ title: 'Settings' }}
                           />
                           <Stack.Screen
                             name="Modal"
