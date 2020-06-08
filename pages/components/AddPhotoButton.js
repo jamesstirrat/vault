@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, TouchableHighlight, TouchableOpacity, Animated } from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { NavigationActions } from '@react-navigation/compat';
+import { useNavigation } from '@react-navigation/native';
 
 
 class AddButton extends React.Component {
@@ -49,6 +50,10 @@ class AddButton extends React.Component {
     };
 
     render() {
+
+        //getting navigation from props
+        const { navigation } = this.props;
+
         const photoX = this.mode.interpolate({
             inputRange: [0, 1],
             outputRange: [-30, -85]
@@ -86,13 +91,13 @@ class AddButton extends React.Component {
         return (
             <View style={{ position: "absolute", alignItems: "center" }}>
                 <Animated.View style={{ position: "absolute", left: photoX, top: photoY }}>
-                    <TouchableOpacity style={styles.secondaryButton} onPress={() => {this.props.navigation.navigate('Photo')}}>
+                    <TouchableOpacity style={styles.secondaryButton} onPress={() => {navigation.navigate('Photo')}}>
                         <Icon name="image" size={20} color="#1A86CB" />
                     </TouchableOpacity>
                 </Animated.View>
 
                 <Animated.View style={{ position: "absolute", left: cameraX, top: cameraY }}>
-                    <TouchableOpacity style={styles.secondaryButton} onPress={() => {this.props.navigation.navigate('Camera')}}>
+                    <TouchableOpacity style={styles.secondaryButton} onPress={() => {navigation.navigate('Camera')}}>
                         <Icon name="camera" size={20} color="#1A86CB" />
                     </TouchableOpacity>
                 </Animated.View>
@@ -104,7 +109,7 @@ class AddButton extends React.Component {
                 </Animated.View>
 
                 <Animated.View style={[styles.button, sizeStyle]}>
-                    <TouchableOpacity style={{height:72, width:72, alignItems: 'center', justifyContent: 'center'}} onPress={() => {this.props.navigation.navigate('Photo')}} onLongPress={this.handlePressIn} onPressOut={this.handlePressOut} underlayColor="#7F58FF">
+                    <TouchableOpacity style={{height:72, width:72, alignItems: 'center', justifyContent: 'center'}} onPress={() => {navigation.navigate('Modal')}} onLongPress={this.handlePressIn} onPressOut={this.handlePressOut} underlayColor="#7F58FF">
                         <Icon name="plus" size={20} color="white" />
                     </TouchableOpacity>
                 </Animated.View>
@@ -113,7 +118,12 @@ class AddButton extends React.Component {
     }
 }
 
-export default AddButton
+// Wrap and export
+export default function(props) {
+  const navigation = useNavigation();
+
+  return <AddButton {...props} navigation={navigation} />;
+}
 
 const styles = StyleSheet.create({
 //ADD BUTTON

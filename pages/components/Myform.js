@@ -6,8 +6,6 @@ import ImagePicker from 'react-native-image-picker';
 import { openDatabase } from 'react-native-sqlite-storage';
 var db = openDatabase({ name: 'UserDatabase.db' });
 
-import { withNavigation } from 'react-navigation';
-
 class Myform extends React.Component {
     state = {
         imageData: null,
@@ -127,7 +125,7 @@ componentDidMount() {
 }
 
 
-export default withNavigation(Myform);
+export default Myform;
 
 const styles = StyleSheet.create({
   container: {

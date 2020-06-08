@@ -13,6 +13,7 @@ import React from 'react';
 //Import react-navigation
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createCompatNavigatorFactory } from '@react-navigation/compat';
 import { NavigationContainer, DefaultTheme as NavigationDefaultTheme, DarkTheme as NavigationDarkTheme } from '@react-navigation/native';
 import { Provider as PaperProvider, DefaultTheme as PaperDefaultTheme, DarkTheme as PaperDarkTheme } from 'react-native-paper';
 
@@ -22,22 +23,50 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 //screens
 import VaultScreen from './pages/VaultScreen';
 import PostScreen from './pages/PostScreen';
+import SettingsScreen from './pages/SettingsScreen';
 
 //components
 import AddPhotoModal from './pages/components/AddPhotoModal';
 import AddTextModal from './pages/components/AddTextModal';
 import ModalCamera from './pages/components/ModalCamera'
 
-            const ModalStack = createBottomTabNavigator();
+            // const theme = isDarkTheme ? CustomDarkTheme : CustomDefaultTheme;
+            const theme = CustomDarkTheme;
+
+            const CustomDefaultTheme = {
+              ...NavigationDefaultTheme,
+              ...PaperDefaultTheme,
+              colors: {
+                ...NavigationDefaultTheme.colors,
+                ...PaperDefaultTheme.colors,
+                background: '#ffffff',
+                text: '#333333'
+              }
+            }
+
+            const CustomDarkTheme = {
+              ...NavigationDarkTheme,
+              ...PaperDarkTheme,
+              colors: {
+                ...NavigationDarkTheme.colors,
+                ...PaperDarkTheme.colors,
+                background: '#333333',
+                text: '#ffffff'
+            }
+          }
+
+            const Tab = createBottomTabNavigator();
 
             function Modal() {
               return (
-                <NavigationContainer mode="modal">
-                  <Tab.Navigator>
+                  <Tab.Navigator
+                    headerMode='none'
+                    mode='modal'
+                    >
                     <Tab.Screen
                       name="Photo"
                       component={AddPhotoModal}
-                      options={{ headerShown: false, tabBarIcon: ({ tintColor }) => <Icon name="image" size={20} color="grey" /> }} />
+                      options={{ animationEnabled: true, headerShown: false, tabBarIcon: ({ tintColor }) => <Icon name="image" size={20} color="grey" /> }} />
                     <Tab.Screen
                       name="Camera"
                       component={ModalCamera}
@@ -47,7 +76,6 @@ import ModalCamera from './pages/components/ModalCamera'
                       component={AddTextModal}
                       options={{ headerShown: false, tabBarIcon: ({ tintColor }) => <Icon name="font" size={20} color="grey" /> }} />
                   </Tab.Navigator>
-                </NavigationContainer>
               );
             }
 
@@ -55,11 +83,13 @@ import ModalCamera from './pages/components/ModalCamera'
 
             function App() {
               return (
-                  // <PaperProvider theme={theme}>
-                  //     <NavigationContainer theme={DarkTheme}>
+                  <PaperProvider theme={theme}>
                       <NavigationContainer>
                         <Stack.Navigator
                           initialRouteName="Home"
+                          mode='modal'
+                          screenOptions={{
+                          cardStyle: {backgroundColor: 'transparent'}}}
                         >
                           <Stack.Screen
                             name="Vault"
@@ -72,13 +102,18 @@ import ModalCamera from './pages/components/ModalCamera'
                             options={{ title: 'View Post' }}
                           />
                           <Stack.Screen
-                            name="addPhotoModal"
+                            name="Settings"
+                            component={SettingsScreen}
+                            options={{ title: 'Settings' }}
+                          />
+                          <Stack.Screen
+                            name="Modal"
                             component={Modal}
-                            options={{ headerMode: 'none', transparentCard: true }}
+                            options={{ headerShown: false, cardStyle: { backgroundColor: "transparent" }}}
                           />
                         </Stack.Navigator>
                     </NavigationContainer>
-                // </PaperProvider>
+                </PaperProvider>
               );
             }
 

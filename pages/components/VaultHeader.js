@@ -1,15 +1,19 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 // import styles from '../Styles'
 
 export default function VaultHeader() {
+
+    const navigation = useNavigation();
 
   return (
     <View style={styles.header}>
         <View style={styles.headerBundle}>
         <Image style={styles.logo} resizeMode='contain' source={require('../images/icon-nobackground.png')}/>
           <Text style={styles.headerText}>Vault</Text>
+          <TouchableOpacity style={styles.avatar} onPress={() => {navigation.navigate('Settings')}}/>
         </View>
     </View>
   );
@@ -18,7 +22,7 @@ export default function VaultHeader() {
 const styles = StyleSheet.create({
 header: {
   width: '100%',
-  height: 70,
+  height: 80,
   flexDirection: 'row',
   justifyContent: 'center',
   alignItems: 'flex-end',
@@ -45,4 +49,12 @@ logo: {
   alignContent: 'center',
   justifyContent: 'center'
 },
+avatar: {
+  height: 40,
+  width: 40,
+  backgroundColor: '#1A86CB',
+  position: 'absolute',
+  right: 25,
+  borderRadius: 20
+}
 });

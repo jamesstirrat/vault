@@ -7,7 +7,7 @@ var db = openDatabase({ name: 'UserDatabase.db' });
 
 import styles from './Styles'
 
-export default class VaultScreen extends React.Component {
+export default class PostScreen extends React.Component {
     //when we pass a variable through react navigation, how do we access it? eg we want to access the param itemSelected that was passed in navigation
     state = {
       item: null
