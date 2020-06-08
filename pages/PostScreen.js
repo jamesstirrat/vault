@@ -30,7 +30,11 @@ export default class PostScreen extends React.Component {
       return (
         <SafeAreaView style={{flex:1, backgroundColor: 'white'}}>
 
-        <View style={{flex:1, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center'}}>
+        <View style={{flex:1, backgroundColor: 'white', alignItems: 'center'}}>
+            <Image
+            source={{ uri: '' }}
+            style={{ alignSelf: 'center', width: Dimensions.get('window').width, height: Dimensions.get('window').width, backgroundColor: '#1A86CB', marginBottom: 10 }}
+            />
             <Text style={{fontSize: 24, fontWeight: '800'}}> Post Data Here </Text>
         </View>
 
@@ -40,3 +44,35 @@ export default class PostScreen extends React.Component {
       );
     }
 }
+
+
+// deletePhoto = () => {
+//
+//   this.selectPhoto()
+//
+//   const { photo_id } = this.state;
+//
+//   console.log('delete attempt')
+//   console.log(photo_id)
+//   db.transaction(tx => {
+//     tx.executeSql('DELETE FROM items where id=?', [photo_id],
+//       (tx, results) => {
+//         console.log('Results', results.rowsAffected);
+//         if (results.rowsAffected > 0) {
+//           Alert.alert(
+//             'Success',
+//             'Photo deleted successfully',
+//             [
+//               {
+//                 text: 'Ok',
+//               },
+//             ],
+//             { cancelable: false }
+//           );
+//         } else {
+//           return null;
+//         }
+//       }
+//     );
+//   });
+// };

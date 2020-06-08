@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     height: Dimensions.get('window').width / 3, // approximate a square
   },
   itemInvisible: {
-    backgroundColor: 'transparent',
+    backgroundColor: 'red',
   },
   itemText: {
     color: '#fff',
@@ -169,8 +169,15 @@ const styles = StyleSheet.create({
         position: 'absolute',
         left: 20,
         top: 75
+    },
 
-      }
+    //App.js
+    iconContainer: {
+        height: 30,
+        width: 40,
+        right: 10
+
+    }
 });
 
 export default styles;

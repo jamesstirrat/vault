@@ -83,15 +83,6 @@ class Myform extends React.Component {
       }
   }
 
-//create table if not existing. Where should componentDidMount be placed?
-componentDidMount() {
-    db.transaction(tx => {
-      tx.executeSql(
-        'create table if not exists items (id integer primary key not null, value text);'
-      );
-    });
-  }
-
   render() {
     const { image } = this.props;
 

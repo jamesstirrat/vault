@@ -9,7 +9,7 @@
 // Sign Up/Sign In for App Backups (with settings on top right avatar)
 
 import React from 'react';
-
+import { View, TouchableOpacity } from 'react-native';
 //Import react-navigation
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -29,6 +29,8 @@ import SettingsScreen from './pages/SettingsScreen';
 import AddPhotoModal from './pages/components/AddPhotoModal';
 import AddTextModal from './pages/components/AddTextModal';
 import ModalCamera from './pages/components/ModalCamera'
+
+import styles from './pages/Styles'
 
             // const theme = isDarkTheme ? CustomDarkTheme : CustomDefaultTheme;
             const theme = CustomDarkTheme;
@@ -62,8 +64,9 @@ import ModalCamera from './pages/components/ModalCamera'
                   <Tab.Navigator
                     headerMode='none'
                     screenOptions={{
-                    cardStyle: {backgroundColor: 'transparent'},
-                    transparentCard: true }}
+                      cardStyle: { backgroundColor: 'transparent' },
+                      cardOverlayEnabled: true,}}
+                    mode='modal'
                     >
                     <Tab.Screen
                       name="Photo"
@@ -72,7 +75,7 @@ import ModalCamera from './pages/components/ModalCamera'
                     <Tab.Screen
                       name="Camera"
                       component={ModalCamera}
-                      options={{ headerShown: false, tabBarIcon: ({ tintColor }) => <Icon name="camera" size={20} color="grey" /> }} />
+                      options={{ headerShown: false, tabBarVisible: false, tabBarIcon: ({ tintColor }) => <Icon name="camera" size={20} color="grey" /> }} />
                     <Tab.Screen
                       name="Thoughts"
                       component={AddTextModal}
@@ -96,12 +99,12 @@ import ModalCamera from './pages/components/ModalCamera'
                       <Stack.Screen
                         name="Post"
                         component={PostScreen}
-                        options={{ title: 'View Post' }}
+                        options={{ title: 'View Post', headerRight: () => (<TouchableOpacity><Icon style={styles.iconContainer} name="ellipsis-h" size={32} color="#147EFB" /></TouchableOpacity>) }}
                       />
                       <Stack.Screen
                         name="Settings"
                         component={SettingsScreen}
-                        options={{ title: 'Settings' }}
+                        options={{ title: 'Settings'}}
                       />
                     </Stack.Navigator>
               );
@@ -115,8 +118,9 @@ import ModalCamera from './pages/components/ModalCamera'
                           initialRouteName="Home"
                           mode='modal'
                           screenOptions={{
-                          cardStyle: {backgroundColor: 'transparent'},
-                          transparentCard: true }}
+                              cardStyle: { backgroundColor: 'transparent' },
+                              cardOverlayEnabled: true
+                          }}
                         >
                           <Stack.Screen
                             name="Vault"
@@ -126,7 +130,7 @@ import ModalCamera from './pages/components/ModalCamera'
                           <Stack.Screen
                             name="Modal"
                             component={Modal}
-                            options={{ headerShown: false, cardStyle: { backgroundColor: "transparent" }}}
+                            options={{ headerShown: false }}
                           />
                         </Stack.Navigator>
                     </NavigationContainer>

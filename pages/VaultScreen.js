@@ -3,6 +3,7 @@
 import React from 'react';
 
 import { View, TextInput, SafeAreaView, Button, Text, Alert, Image, TouchableOpacity, StyleSheet, ScrollView, Platform, TouchableWithoutFeedback, StatusBar, TouchableHighlight, Dimensions, FlatList } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { openDatabase } from 'react-native-sqlite-storage';
 var db = openDatabase({ name: 'UserDatabase.db' });
@@ -40,13 +41,32 @@ export default class VaultScreen extends React.Component {
     const { items } = this.state;
     if (item.empty === true) {
       return <View style={[styles.item, styles.itemInvisible]} />;
-    }
-    return (
-      <TouchableOpacity style={styles.item} onPressIn={() => this.setState({ itemSelected: item.id })} onPress={this.viewPhoto} key={item.id}>
-              <Image source={{ uri: item.value }} style={{ flex: 1, width: '100%', height: undefined }} />
-      </TouchableOpacity>
-        );
-    };
+    } else if (item.type === 'thought') {
+        <TouchableOpacity style={styles.item} onPressIn={() => this.setState({ itemSelected: item.id })} onPress={this.viewPhoto} key={item.id}>
+                <View style={{ flex: 1, width: '100%', height: undefined, backgroundColor: 'blue', justifyContent: 'center', alignItems: 'center' }}>
+                    <Icon name="font" size={48} color="white" />
+                </View>
+        </TouchableOpacity>
+    } else if (item.type === 'mood') {
+        <TouchableOpacity style={styles.item} onPressIn={() => this.setState({ itemSelected: item.id })} onPress={this.viewPhoto} key={item.id}>
+                <View style={{ flex: 1, width: '100%', height: undefined, backgroundColor: 'red', justifyContent: 'center', alignItems: 'center' }}>
+                    <Icon name="smile-o" size={48} color="white" />
+                </View>
+        </TouchableOpacity>
+    } else if (item.type === 'place') {
+        <TouchableOpacity style={styles.item} onPressIn={() => this.setState({ itemSelected: item.id })} onPress={this.viewPhoto} key={item.id}>
+                <View style={{ flex: 1, width: '100%', height: undefined, backgroundColor: 'green', justifyContent: 'center', alignItems: 'center' }}>
+                    <Icon name="map-marker" size={48} color="white" />
+                </View>
+        </TouchableOpacity>
+    } else {
+      return (
+        <TouchableOpacity style={styles.item} onPressIn={() => this.setState({ itemSelected: item.id })} onPress={this.viewPhoto} key={item.id}>
+                <Image source={{ uri: item.value }} style={{ flex: 1, width: '100%', height: undefined }} />
+        </TouchableOpacity>
+          );
+      }
+  };
 
   searchItems = (value) => {
     //search SQLite with search query and return the items that match that query
@@ -104,38 +124,6 @@ export default class VaultScreen extends React.Component {
     });
   };
 
-
-  // deletePhoto = () => {
-  //
-  //   this.selectPhoto()
-  //
-  //   const { photo_id } = this.state;
-  //
-  //   console.log('delete attempt')
-  //   console.log(photo_id)
-  //   db.transaction(tx => {
-  //     tx.executeSql('DELETE FROM items where id=?', [photo_id],
-  //       (tx, results) => {
-  //         console.log('Results', results.rowsAffected);
-  //         if (results.rowsAffected > 0) {
-  //           Alert.alert(
-  //             'Success',
-  //             'Photo deleted successfully',
-  //             [
-  //               {
-  //                 text: 'Ok',
-  //               },
-  //             ],
-  //             { cancelable: false }
-  //           );
-  //         } else {
-  //           return null;
-  //         }
-  //       }
-  //     );
-  //   });
-  // };
-
   viewPhoto = () => {
 
     // pass through selected item to the post screen
@@ -164,7 +152,12 @@ export default class VaultScreen extends React.Component {
       //         console.log(this.state.items.id.count)
       //       });
       //   })
-    }
+          db.transaction(tx => {
+            tx.executeSql(
+              'create table if not exists items (id integer primary key not null, value text, caption text, type text);'
+            );
+          });
+        }
 
     render() {
       return (

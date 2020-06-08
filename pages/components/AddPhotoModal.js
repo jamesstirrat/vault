@@ -2,7 +2,7 @@
 // Checks user's permissions for accessing media library. Alias for Permissions.getAsync(Permissions.CAMERA_ROLL).
 
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, KeyboardAvoidingView, TextInput, Image, FlatList } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, TextInput, Image, FlatList } from 'react-native';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
@@ -15,7 +15,8 @@ import Myform from './Myform'
 export default class AddPhotoModal extends React.Component {
     render() {
         return(
-                  <KeyboardAvoidingView style={{backgroundColor:"#000000CC", flex:1}}>
+                  <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : null} style={{backgroundColor:"#000000CC", flex:1}}>
+                    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                     <View style={{ backgroundColor:"#ffffff", marginLeft: 0, marginRight: 0, marginTop: 180, padding: 20, borderTopLeftRadius: 20, borderTopRightRadius: 20, flex: 1, }}>
                         <View style={styles.header}>
                             <TouchableOpacity style={{position: 'absolute'}} onPress={() => this.props.navigation.navigate('Vault')}>
@@ -27,17 +28,18 @@ export default class AddPhotoModal extends React.Component {
                             </TouchableOpacity>
                         </View>
                         <View style={styles.photoUpload}>
-                        <Myform />
                             <View style={styles.uploadTextInput}>
                                 <Icon name="comments" size={20} color="grey" />
-                                <TextInput style={{width: '100%', paddingLeft: 5, fontSize: 18}}
+                                <TextInput style={{width: '90%', height: 100, paddingLeft: 5, fontSize: 18}}
                                     placeholder="What do you want to say?"
                                     // onChangeText={this.changeText.bind(this)}
                                     multiline={true}
                                     />
                             </View>
+                        <Myform />
                         </View>
                     </View>
+                    </TouchableWithoutFeedback>
                  </KeyboardAvoidingView>
         );
     }
@@ -48,7 +50,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'flex-end'
 },
   title: {
     fontSize: 24,
@@ -84,7 +86,7 @@ const styles = StyleSheet.create({
     height: 40,
     marginHorizontal: 35,
     borderRadius: 10,
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
     alignItems: 'center',
     marginTop: 20
 },
@@ -103,9 +105,11 @@ image: {
 },
 uploadTextInput: {
   flexDirection: 'row',
-  left: 20,
+  left: 10,
+  right: 10,
   width: '100%',
-  top: 20
+  top: 10,
+  marginBottom: 30
 },
 photoUpload: {
   flex: 1,

@@ -91,19 +91,19 @@ class AddButton extends React.Component {
         return (
             <View style={{ position: "absolute", alignItems: "center" }}>
                 <Animated.View style={{ position: "absolute", left: photoX, top: photoY }}>
-                    <TouchableOpacity style={styles.secondaryButton} onPress={() => {navigation.navigate('Photo')}}>
+                    <TouchableOpacity style={styles.secondaryButton} onPress={() => {navigation.navigate('Modal', { screen: 'Photo' })}}>
                         <Icon name="image" size={20} color="#1A86CB" />
                     </TouchableOpacity>
                 </Animated.View>
 
                 <Animated.View style={{ position: "absolute", left: cameraX, top: cameraY }}>
-                    <TouchableOpacity style={styles.secondaryButton} onPress={() => {navigation.navigate('Camera')}}>
+                    <TouchableOpacity style={styles.secondaryButton} onPress={() => {navigation.navigate('Modal', { screen: 'Camera' })}}>
                         <Icon name="camera" size={20} color="#1A86CB" />
                     </TouchableOpacity>
                 </Animated.View>
 
                 <Animated.View style={{ position: "absolute", left: textX, top: textY }}>
-                    <TouchableOpacity style={styles.secondaryButton} onPress={() => {this.props.navigation.navigate('Thoughts')}}>
+                    <TouchableOpacity style={styles.secondaryButton} onPress={() => {navigation.navigate('Modal', { screen: 'Thoughts' })}}>
                         <Icon name="font" size={20} color="#1A86CB" />
                     </TouchableOpacity>
                 </Animated.View>

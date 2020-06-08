@@ -14,17 +14,45 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+import { openDatabase } from 'react-native-sqlite-storage';
+var db = openDatabase({ name: 'UserDatabase.db' });
+
 import ModalContainer from '../../App'
 
 class AddTextModal extends React.Component {
 
-    // changeText(value) {
-    //   this.props.textChanged(value);
-    // }
-    //
-    // continueUpload = (value)  => {
-    //     this.props.navigation.navigate('Upload')
-    // }
+    state = {
+      textCaption: null,
+    };
+
+    onSubmit = ()  => {
+
+        const { textCaption } = this.state;
+        console.log(textCaption)
+
+            if (textCaption != null) {
+                this.add(textCaption);
+                this.setState({ textCaption: null });
+                console.log('submitted')
+
+        this.props.navigation.navigate('Vault')
+        //for refreshing the vault
+        // this.update()
+    } else {
+        return null
+        }
+    }
+
+    add(text) {
+      db.transaction(
+        tx => {
+          tx.executeSql('INSERT INTO items (value, caption, type) values (?, ?, ?)', ['text', text, 'thought']);
+        },
+        null,
+      );
+    }
+
+
 
     render() {
         return(
@@ -35,7 +63,7 @@ class AddTextModal extends React.Component {
                                 <Text style={styles.buttonFont}>Back</Text>
                             </TouchableOpacity>
                             <Text style={styles.headerText}>Write Something</Text>
-                            <TouchableOpacity style={{position: 'absolute', right: 0}} onPress={this.continueUpload}>
+                            <TouchableOpacity style={{position: 'absolute', right: 0}} onPress={this.onSubmit}>
                                 <Text style={styles.buttonFont}>Continue</Text>
                             </TouchableOpacity>
 
@@ -44,8 +72,10 @@ class AddTextModal extends React.Component {
                             <Icon name="comments" size={20} color="grey" />
                             <TextInput style={{flex: 1, width: '100%', height: '100%', paddingLeft: 5, fontSize: 18}}
                                 placeholder="What do you want to say?"
-                                // onChangeText={this.changeText.bind(this)}
+                                value={this.state.textCaption}
+                                onChangeText={(text) => this.setState({ textCaption: text })}
                                 multiline={true}
+                                returnKeyType="go"
                                 />
                         </View>
                     </View>

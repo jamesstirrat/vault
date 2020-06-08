@@ -75,7 +75,7 @@ export default class ModalCamera extends React.Component {
                         type={cameraType}
                         flashMode={flashMode}
                         style={styles.preview}
-                        ref={camera => this.camera = camera}
+                        ref={ref => { this.camera = ref}}
                     />
                     <TouchableOpacity style={{position: 'absolute', right: 50, top: 40}} onPress={() => this.props.navigation.navigate('Home')}>
                         <Icon name="camera" size={20} color="#1A86CB" />
