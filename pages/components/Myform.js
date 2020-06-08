@@ -103,7 +103,7 @@ class Myform extends React.Component {
   add(text) {
     db.transaction(
       tx => {
-        tx.executeSql('INSERT INTO items (value) values (?)', [text]);
+        tx.executeSql('INSERT INTO items (value, caption, type) values (?, ?, ?)', [text, null, null]);
       },
       null,
       // this.update

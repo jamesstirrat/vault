@@ -14,8 +14,7 @@ import { View, TouchableOpacity } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createCompatNavigatorFactory } from '@react-navigation/compat';
-import { NavigationContainer, DefaultTheme as NavigationDefaultTheme, DarkTheme as NavigationDarkTheme } from '@react-navigation/native';
-import { Provider as PaperProvider, DefaultTheme as PaperDefaultTheme, DarkTheme as PaperDarkTheme } from 'react-native-paper';
+import { NavigationContainer } from '@react-navigation/native';
 
 //Import Icons
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -31,31 +30,6 @@ import AddTextModal from './pages/components/AddTextModal';
 import ModalCamera from './pages/components/ModalCamera'
 
 import styles from './pages/Styles'
-
-            // const theme = isDarkTheme ? CustomDarkTheme : CustomDefaultTheme;
-            const theme = CustomDarkTheme;
-
-            const CustomDefaultTheme = {
-              ...NavigationDefaultTheme,
-              ...PaperDefaultTheme,
-              colors: {
-                ...NavigationDefaultTheme.colors,
-                ...PaperDefaultTheme.colors,
-                background: '#ffffff',
-                text: '#333333'
-              }
-            }
-
-            const CustomDarkTheme = {
-              ...NavigationDarkTheme,
-              ...PaperDarkTheme,
-              colors: {
-                ...NavigationDarkTheme.colors,
-                ...PaperDarkTheme.colors,
-                background: '#333333',
-                text: '#ffffff'
-            }
-          }
 
             const Tab = createBottomTabNavigator();
 
@@ -112,7 +86,6 @@ import styles from './pages/Styles'
 
             function App() {
               return (
-                  <PaperProvider theme={theme}>
                       <NavigationContainer>
                         <Stack.Navigator
                           initialRouteName="Home"
@@ -134,7 +107,6 @@ import styles from './pages/Styles'
                           />
                         </Stack.Navigator>
                     </NavigationContainer>
-                </PaperProvider>
               );
             }
 

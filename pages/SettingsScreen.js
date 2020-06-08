@@ -15,13 +15,6 @@ export default class PostScreen extends React.Component {
                     </View>
                 </TouchableOpacity>
               </View>
-
-                    <View>
-                        <Text>Dark Theme</Text>
-                        <View>
-                            <Switch/>
-                        </View>
-                    </View>
         </SafeAreaView>
       )
     }

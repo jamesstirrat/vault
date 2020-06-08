@@ -46,13 +46,11 @@ class AddTextModal extends React.Component {
     add(text) {
       db.transaction(
         tx => {
-          tx.executeSql('INSERT INTO items (value, caption, type) values (?, ?, ?)', ['text', text, 'thought']);
+          tx.executeSql('INSERT INTO items (value, caption, type) values (?, ?, ?)', [null, text, 'thought']);
         },
         null,
       );
     }
-
-
 
     render() {
         return(

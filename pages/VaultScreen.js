@@ -37,16 +37,18 @@ export default class VaultScreen extends React.Component {
       return this.setState({ itemsFormatted: newItems })
   };
 
-  renderItem = ({ item }) => {
+  renderItem = ({ item, type }) => {
     const { items } = this.state;
     if (item.empty === true) {
       return <View style={[styles.item, styles.itemInvisible]} />;
-    } else if (item.type === 'thought') {
+  } else if (item.type === 'thought') {
+      return(
         <TouchableOpacity style={styles.item} onPressIn={() => this.setState({ itemSelected: item.id })} onPress={this.viewPhoto} key={item.id}>
-                <View style={{ flex: 1, width: '100%', height: undefined, backgroundColor: 'blue', justifyContent: 'center', alignItems: 'center' }}>
+                <View style={{ flex: 1, width: '100%', height: undefined, justifyContent: 'center', alignItems: 'center' }}>
                     <Icon name="font" size={48} color="white" />
                 </View>
         </TouchableOpacity>
+    );
     } else if (item.type === 'mood') {
         <TouchableOpacity style={styles.item} onPressIn={() => this.setState({ itemSelected: item.id })} onPress={this.viewPhoto} key={item.id}>
                 <View style={{ flex: 1, width: '100%', height: undefined, backgroundColor: 'red', justifyContent: 'center', alignItems: 'center' }}>
