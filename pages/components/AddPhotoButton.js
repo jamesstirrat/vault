@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableHighlight, TouchableOpacity, Animated } from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { withNavigation } from 'react-navigation';
+import { NavigationActions } from '@react-navigation/compat';
 
 
 class AddButton extends React.Component {
@@ -113,7 +113,7 @@ class AddButton extends React.Component {
     }
 }
 
-export default withNavigation(AddButton)
+export default AddButton
 
 const styles = StyleSheet.create({
 //ADD BUTTON

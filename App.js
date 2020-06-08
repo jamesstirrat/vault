@@ -11,8 +11,7 @@
 import React from 'react';
 
 //Import react-navigation
-import { createAppContainer } from 'react-navigation';
-import { createStackNavigator} from 'react-navigation-stack';
+import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, DefaultTheme as NavigationDefaultTheme, DarkTheme as NavigationDarkTheme } from '@react-navigation/native';
 import { Provider as PaperProvider, DefaultTheme as PaperDefaultTheme, DarkTheme as PaperDarkTheme } from 'react-native-paper';
@@ -30,9 +29,8 @@ import AddTextModal from './pages/components/AddTextModal';
 import ModalCamera from './pages/components/ModalCamera'
 
             const ModalStack = createBottomTabNavigator();
-            const AppStack = createStackNavigator();
 
-            function ModalStack() {
+            function Modal() {
               return (
                 <NavigationContainer mode="modal">
                   <Tab.Navigator>
@@ -49,13 +47,17 @@ import ModalCamera from './pages/components/ModalCamera'
                       component={AddTextModal}
                       options={{ headerShown: false, tabBarIcon: ({ tintColor }) => <Icon name="font" size={20} color="grey" /> }} />
                   </Tab.Navigator>
+                </NavigationContainer>
               );
             }
 
-            function AppStack() {
+            const Stack = createStackNavigator();
+
+            function App() {
               return (
-                  <PaperProvider theme={theme}>
-                      <NavigationContainer theme={DarkTheme}>
+                  // <PaperProvider theme={theme}>
+                  //     <NavigationContainer theme={DarkTheme}>
+                      <NavigationContainer>
                         <Stack.Navigator
                           initialRouteName="Home"
                         >
@@ -67,15 +69,17 @@ import ModalCamera from './pages/components/ModalCamera'
                           <Stack.Screen
                             name="Post"
                             component={PostScreen}
-                            initialParams={{ title: 'View Post' }}
+                            options={{ title: 'View Post' }}
                           />
                           <Stack.Screen
                             name="addPhotoModal"
-                            component={ModalContainer}
-                            initialParams={{ headerMode: 'none', transparentCard: true }}
+                            component={Modal}
+                            options={{ headerMode: 'none', transparentCard: true }}
                           />
                         </Stack.Navigator>
                     </NavigationContainer>
-                </PaperProvider>
+                // </PaperProvider>
               );
             }
+
+            export default App;
