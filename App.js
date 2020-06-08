@@ -1,10 +1,21 @@
-/*Example of SQLite Database in React Native*/
+// TODO: Add Dark Mode to APP
+// Settings on tapping avatar on top right
+// Fix upload refresh on post
+// Table contains data type
+// Different types/combinations uploads
+// Rendering different types on feeds
+// Rendering View Post when post is tapped
+// Get Search to work
+// Sign Up/Sign In for App Backups (with settings on top right avatar)
+
 import React from 'react';
 
 //Import react-navigation
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator} from 'react-navigation-stack';
-import { createBottomTabNavigator } from 'react-navigation-tabs';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { NavigationContainer, DefaultTheme as NavigationDefaultTheme, DarkTheme as NavigationDarkTheme } from '@react-navigation/native';
+import { Provider as PaperProvider, DefaultTheme as PaperDefaultTheme, DarkTheme as PaperDarkTheme } from 'react-native-paper';
 
 //Import Icons
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -18,72 +29,53 @@ import AddPhotoModal from './pages/components/AddPhotoModal';
 import AddTextModal from './pages/components/AddTextModal';
 import ModalCamera from './pages/components/ModalCamera'
 
-const ModalNavigator = createStackNavigator({
-            default: createBottomTabNavigator({
-                Photo: { screen: AddPhotoModal,
-                        navigationOptions: {
-                          headerMode: false,
-                          tabBarIcon: ({ tintColor }) => <Icon name="image" size={20} color="grey" />
-                         }
-                      },
-                Camera: { screen: ModalCamera,
-                          navigationOptions: {
-                            headerMode: false,
-                            tabBarIcon: ({ tintColor }) => <Icon name="camera" size={20} color="grey" />,
-                            tabBarVisible: false
-                        }
-                     },
-                Thoughts: { screen: AddTextModal,
-                         navigationOptions: {
-                           headerMode: false,
-                           tabBarIcon: ({ tintColor }) => <Icon name="font" size={20} color="grey" />
-                       }
-                   },
-               })
-         },
-             {
-                transparentCard: true,
-                headerMode: 'none',
-                navigationOptions: {
-                    headerVisible: false,
-                    animationEnabled: false,
-                    transitionConfig: () => ({
-                          transitionSpec: {
-                            duration:0,
-                            timing: 0,
-                            easing: Easing.step0,
-                          },
-                        })
-                }
-            });
+            const ModalStack = createBottomTabNavigator();
+            const AppStack = createStackNavigator();
 
-const ModalContainer = createAppContainer(ModalNavigator);
+            function ModalStack() {
+              return (
+                <NavigationContainer mode="modal">
+                  <Tab.Navigator>
+                    <Tab.Screen
+                      name="Photo"
+                      component={AddPhotoModal}
+                      options={{ headerShown: false, tabBarIcon: ({ tintColor }) => <Icon name="image" size={20} color="grey" /> }} />
+                    <Tab.Screen
+                      name="Camera"
+                      component={ModalCamera}
+                      options={{ headerShown: false, tabBarIcon: ({ tintColor }) => <Icon name="camera" size={20} color="grey" /> }} />
+                    <Tab.Screen
+                      name="Thoughts"
+                      component={AddTextModal}
+                      options={{ headerShown: false, tabBarIcon: ({ tintColor }) => <Icon name="font" size={20} color="grey" /> }} />
+                  </Tab.Navigator>
+              );
+            }
 
-const App = createStackNavigator({
-  default: createStackNavigator({
-      Vault: {
-        screen: VaultScreen,
-        navigationOptions: {
-            headerShown: false
-        },
-      },
-      Post: {
-        screen: PostScreen,
-        navigationOptions: {
-          title: 'View Post'
-        },
-      },
-      initialRouteName: 'Vault',
-  }),
-      addPhotoModal: { screen: ModalContainer }
-            }, {
-                    mode: 'modal',
-                    headerMode: 'none',
-                    transparentCard: true,
-                }
-            )
-
-        // initialRouteName: 'Vault',
-
-
-export default createAppContainer(App);
+            function AppStack() {
+              return (
+                  <PaperProvider theme={theme}>
+                      <NavigationContainer theme={DarkTheme}>
+                        <Stack.Navigator
+                          initialRouteName="Home"
+                        >
+                          <Stack.Screen
+                            name="Vault"
+                            component={VaultScreen}
+                            options={{ headerShown: false }}
+                          />
+                          <Stack.Screen
+                            name="Post"
+                            component={PostScreen}
+                            initialParams={{ title: 'View Post' }}
+                          />
+                          <Stack.Screen
+                            name="addPhotoModal"
+                            component={ModalContainer}
+                            initialParams={{ headerMode: 'none', transparentCard: true }}
+                          />
+                        </Stack.Navigator>
+                    </NavigationContainer>
+                </PaperProvider>
+              );
+            }
