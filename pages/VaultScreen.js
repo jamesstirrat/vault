@@ -91,40 +91,40 @@ export default class VaultScreen extends React.Component {
         });
     }
 
-  selectPhoto = () => {
-    const { photo_id } = this.state;
-    console.log(this.photo_id);
-    this.update()
-    db.transaction(tx => {
-      tx.executeSql(
-        'SELECT * FROM items where id = ?',
-        [photo_id],
-        (tx, results) => {
-          var len = results.rows.length;
-          console.log('len', len);
-          if (len > 0) {
-            this.setState({
-              value: results.rows.item(0),
-            });
-          } else {
-              Alert.alert(
-                'Failed',
-                'Not Found',
-                [
-                  {
-                    text: 'Try Again',
-                  },
-                ],
-                { cancelable: false }
-              );
-            this.setState({
-              value: '',
-            });
-          }
-        }
-      );
-    });
-  };
+  // selectPhoto = () => {
+  //   const { photo_id } = this.state;
+  //   console.log(this.photo_id);
+  //   this.update()
+  //   db.transaction(tx => {
+  //     tx.executeSql(
+  //       'SELECT * FROM items where id = ?',
+  //       [photo_id],
+  //       (tx, results) => {
+  //         var len = results.rows.length;
+  //         console.log('len', len);
+  //         if (len > 0) {
+  //           this.setState({
+  //             value: results.rows.item(0),
+  //           });
+  //         } else {
+  //             Alert.alert(
+  //               'Failed',
+  //               'Not Found',
+  //               [
+  //                 {
+  //                   text: 'Try Again',
+  //                 },
+  //               ],
+  //               { cancelable: false }
+  //             );
+  //           this.setState({
+  //             value: '',
+  //           });
+  //         }
+  //       }
+  //     );
+  //   });
+  // };
 
   viewPhoto = () => {
 
@@ -187,7 +187,7 @@ export default class VaultScreen extends React.Component {
             renderItem={this.renderItem}
             keyExtractor={item => item.id}
             numColumns= {3}
-            extraData={this.state.items}
+            extraData={this.state}
           />
           <View style={{alignItems: 'center', bottom: 0}}>
               <View style={{backgroundColor: 'white', width: '100%', height: 55, alignItems: 'center', justifyContent: 'center'}}>

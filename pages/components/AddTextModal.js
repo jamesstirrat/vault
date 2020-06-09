@@ -14,6 +14,8 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+import { connect } from 'react-redux'
+
 import { openDatabase } from 'react-native-sqlite-storage';
 var db = openDatabase({ name: 'UserDatabase.db' });
 
@@ -24,6 +26,7 @@ class AddTextModal extends React.Component {
     state = {
       textCaption: null,
     };
+
 
     onSubmit = ()  => {
 
@@ -82,7 +85,11 @@ class AddTextModal extends React.Component {
     }
 }
 
-export default AddTextModal;
+const mapDispatchToProps = {
+  createPost,
+};
+
+export default connect(null, mapDispatchToProps)(AddTextModal);
 
 const styles = StyleSheet.create({
   container: {

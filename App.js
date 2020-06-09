@@ -16,6 +16,10 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createCompatNavigatorFactory } from '@react-navigation/compat';
 import { NavigationContainer } from '@react-navigation/native';
 
+//Redux
+import { Provider } from 'react-redux';
+import Store from './pages/store/Index'
+
 //Import Icons
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -31,6 +35,8 @@ import ModalCamera from './pages/components/ModalCamera'
 
 import styles from './pages/Styles'
 
+export default class Nav extends React.Component {
+    render() {
             const Tab = createBottomTabNavigator();
 
             function Modal() {
@@ -109,5 +115,12 @@ import styles from './pages/Styles'
                     </NavigationContainer>
               );
             }
+            return(
+            <Provider store={Store}>
+                <App/>
+            </Provider>
+        )
+        }
+    }
 
-            export default App;
+            //#5. Wrap Navigation in provider
