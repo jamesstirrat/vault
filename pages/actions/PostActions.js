@@ -1,6 +1,5 @@
-export const createPost = (textInput) => {
+export const createPost = () => {
   return {
-    type: 'UPLOAD',
-    payload: 'update'
+    type: 'UPLOAD_SUCCESS',
   };
 };

@@ -1,5 +1,7 @@
 // TODO: update vault screen when submit button is pressed
 
+//store.subscribe(render)
+
 import React from 'react';
 
 import { View, TextInput, SafeAreaView, Button, Text, Alert, Image, TouchableOpacity, StyleSheet, ScrollView, Platform, TouchableWithoutFeedback, StatusBar, TouchableHighlight, Dimensions, FlatList } from 'react-native';
@@ -8,20 +10,25 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { openDatabase } from 'react-native-sqlite-storage';
 var db = openDatabase({ name: 'UserDatabase.db' });
 
+
 import styles from './Styles'
 
 import VaultHeader from './components/VaultHeader'
 import AddButton from './components/AddPhotoButton'
 import Myform from './components/Myform';
 
-export default class VaultScreen extends React.Component {
-  state = {
-    items: [],
-    itemsFormatted: [],
-    photo_id: null,
-    itemSelected: '',
-    searchQuery: ''
-  };
+//This is the display component.
+class VaultScreen extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            items: [],
+            itemsFormatted: [],
+            photo_id: null,
+            itemSelected: '',
+            searchQuery: '',
+         };
+  }
 
   formatItems = () => {
       const { items } = this.state
@@ -221,3 +228,5 @@ export default class VaultScreen extends React.Component {
           })
     }
 }
+
+export default VaultScreen;

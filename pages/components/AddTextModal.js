@@ -14,38 +14,42 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import { connect } from 'react-redux'
-
 import { openDatabase } from 'react-native-sqlite-storage';
 var db = openDatabase({ name: 'UserDatabase.db' });
 
 import ModalContainer from '../../App'
 
+//This class is the component in the modal, used for uploading text.
 class AddTextModal extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            textCaption: null,
+        };
+    this.upload = this.upload.bind(this);
+    }
 
-    state = {
-      textCaption: null,
-    };
-
+    //the upload function is declared so we can access the refreshFlatListItem function in the display
+    upload() {
+        console.log('winner')
+        this.props.handleNewUpload();
+    }
 
     onSubmit = ()  => {
-
         const { textCaption } = this.state;
         console.log(textCaption)
 
-            if (textCaption != null) {
+        if (textCaption != null) {
                 this.add(textCaption);
+                this.upload()
                 this.setState({ textCaption: null });
-                console.log('submitted')
-
-        this.props.navigation.navigate('Vault')
-        //for refreshing the vault
-        // this.update()
-    } else {
+                this.props.navigation.navigate('Vault')
+            } else {
         return null
         }
     }
 
+    //add is called in the upload and adds our textInput into the DB. It does not load into display automatically.
     add(text) {
       db.transaction(
         tx => {
@@ -85,11 +89,7 @@ class AddTextModal extends React.Component {
     }
 }
 
-const mapDispatchToProps = {
-  createPost,
-};
-
-export default connect(null, mapDispatchToProps)(AddTextModal);
+export default AddTextModal;
 
 const styles = StyleSheet.create({
   container: {

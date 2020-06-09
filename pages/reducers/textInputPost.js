@@ -1,16 +1,13 @@
 const INITIAL_STATE = {
-    text: { textInputValue: '' }
+    text: '' 
 };
 
 const textInputReducer = (state = INITIAL_STATE, action) => {
-    console.log('textInputReducer', action);
     switch(action.type){
-        case 'ADD_INPUT_TEXT':
-            return {...state, textInputValue: action.payload };
-        case 'RESET_INPUT_TEXT':
-            return {...state, textInputValue: ''}
-    default:
-        return state;
+        case 'UPLOAD_SUCCESS':
+            return {state, text: action.payload };
+        default:
+            return state;
     }
 }
 

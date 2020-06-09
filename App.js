@@ -36,10 +36,28 @@ import ModalCamera from './pages/components/ModalCamera'
 import styles from './pages/Styles'
 
 export default class Nav extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            numberOfUploads: 0
+        }
+        this.handleNewUpload = this.handleNewUpload.bind(this)
+    }
+
+    //Callback funtion
+    handleNewUpload() {
+        this.setState((prevState) => {
+            return {
+                numberOfUploads: prevState.numberOfUploads +1
+            };
+        });
+    }
+
     render() {
             const Tab = createBottomTabNavigator();
 
-            function Modal() {
+            function Modal() {    
+            this.props.handleNewUpload()
               return (
                   <Tab.Navigator
                     headerMode='none'
@@ -57,9 +75,10 @@ export default class Nav extends React.Component {
                       component={ModalCamera}
                       options={{ headerShown: false, tabBarVisible: false, tabBarIcon: ({ tintColor }) => <Icon name="camera" size={20} color="grey" /> }} />
                     <Tab.Screen
-                      name="Thoughts"
-                      component={AddTextModal}
-                      options={{ headerShown: false, tabBarIcon: ({ tintColor }) => <Icon name="font" size={20} color="grey" /> }} />
+                        name="Thoughts"
+                        options={{ headerShown: false, tabBarIcon: ({ tintColor }) => <Icon name="font" size={20} color="grey" /> }} >
+                        {props => <AddTextModal {...props} handleNewUpload={this.props.handleNewUpload} />}
+                      </Tab.Screen>
                   </Tab.Navigator>
               );
             }
@@ -90,9 +109,8 @@ export default class Nav extends React.Component {
               );
             }
 
-            function App() {
-              return (
-                      <NavigationContainer>
+                return (
+                    <NavigationContainer>
                         <Stack.Navigator
                           initialRouteName="Home"
                           mode='modal'
@@ -101,26 +119,17 @@ export default class Nav extends React.Component {
                               cardOverlayEnabled: true
                           }}
                         >
-                          <Stack.Screen
-                            name="Vault"
-                            component={Main}
-                            options={{ headerShown: false }}
-                          />
-                          <Stack.Screen
-                            name="Modal"
-                            component={Modal}
-                            options={{ headerShown: false }}
-                          />
+                            <Stack.Screen name="Vault"
+                                options={{headerShown: false }}>
+                              {props => <Main {...props} numberOfUploads={this.state.numberOfUploads} />}
+                            </Stack.Screen>
+
+                            <Stack.Screen name="Modal"
+                                options={{ headerShown: false }}>
+                              {props => <Modal {...props} handleNewUpload={this.handleNewUpload} />}
+                            </Stack.Screen>
                         </Stack.Navigator>
                     </NavigationContainer>
-              );
+                );
             }
-            return(
-            <Provider store={Store}>
-                <App/>
-            </Provider>
-        )
         }
-    }
-
-            //#5. Wrap Navigation in provider
